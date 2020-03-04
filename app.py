@@ -6,13 +6,13 @@ from tensorflow.keras.models import model_from_json
 
 
 # load model
-json_file = open('best_model.json','r')
+json_file = open('best_bn_model.json','r')
 loaded_model_json = json_file.read()
 json_file.close()
 
 model = model_from_json(loaded_model_json)
-model.load_weights('best_model.h5')
-#model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['accuracy'])
+model.load_weights('best_bn_model.h5')
+model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['acc'])
 
 # app
 app = Flask(__name__)
@@ -38,12 +38,15 @@ def predict():
     else:
         resized = cv2.resize(cropped, dsize=(128, 128), interpolation=cv2.INTER_CUBIC)
 
-    prediction = np.argmax(model.predict(resized.reshape(1, 128, 128, 1)))
+    
+    prediction = model.predict(resized.reshape(1, 128, 128, 1))
+    prob = np.max(prediction)
+    prediction = np.argmax(prediction)
 
     if prediction == 0:
-        return jsonify("This is a bad nail")
+        return jsonify("This is a bad nail. Probability: {:.4f}".format(prob))
     elif prediction == 1:
-        return jsonify("This is a good nail")
+        return jsonify("This is a good nail. Probability: {:.4f}".format(prob))
 
 
 if __name__ == "__main__":
