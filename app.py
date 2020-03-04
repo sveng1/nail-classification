@@ -12,15 +12,10 @@ json_file.close()
 
 model = model_from_json(loaded_model_json)
 model.load_weights('best_bn_model.h5')
-model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['acc'])
+#model.compile(optimizer=sgd, loss='binary_crossentropy', metrics=['acc'])
 
 # app
 app = Flask(__name__)
-
-
-@app.route('/', methods=['GET'])
-def home():
-    return "Hello, internet!"
 
 
 @app.route('/prediction/', methods=['GET', 'POST'])
