@@ -1,5 +1,5 @@
 ## Classification of nail images
-Automatic classification of nails
+Automatic classification of nails as good (straight) or bad (bent)
 
 This repo contains
 - nail_classification.ipynb showing preprocessing steps and model architecture.
