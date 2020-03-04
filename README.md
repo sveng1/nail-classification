@@ -18,3 +18,10 @@ A big challenge here is the size of the data set. With only 100 samples per clas
 ### Model fitting
 - The classification is done with a CNN model consisting of two convolutional layers, one dense layer, and some dropout and batch normalization.
 - The model achieved a test accuracy of 81%.
+
+
+### Predict new image
+To predict the class of an image run app.py and send a request with a path to an image in the same folder.
+Example:
+- browser: http://127.0.0.1:5000/prediction/?image=nailgun/bad/1522072693_bad.jpeg
+- terminal: curl http://127.0.0.1:5000/prediction/?image=nailgun/bad/1522072693_bad.jpeg
